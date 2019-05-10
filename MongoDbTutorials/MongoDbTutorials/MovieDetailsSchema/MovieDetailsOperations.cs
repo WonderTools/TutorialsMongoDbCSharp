@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Text;
 using Mongo2Go;
-using MongoDbTutorials.MongoDbTutorials.MovieDetailsCrud.Model;
+using MongoDbTutorials.MongoDbTutorials.MovieDetailsSchema.Model;
 using MongoDB.Driver;
 using NUnit.Framework;
 using WonderTools.JsonSectionReader;
 
-namespace MongoDbTutorials.MongoDbTutorials.MovieDetailsCrud
+namespace MongoDbTutorials.MongoDbTutorials.MovieDetailsSchema
 {
     class MovieDetailsOperations
     {
@@ -25,7 +25,7 @@ namespace MongoDbTutorials.MongoDbTutorials.MovieDetailsCrud
         [Test]
         // Insert a document in database named "testdb", in a collection named "MovieDetail"
         //The document to be inserted should have a property similar to MovieDetail model
-        public void Check_Insert_One_Document()
+        public void Check_Model_Schema_Validity_001()
         {
             var collection = getCollection();
             var movieDetails = testData.GetSection("InsertOne").GetObject<MovieDetail>();

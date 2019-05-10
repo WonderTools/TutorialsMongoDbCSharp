@@ -7,11 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="MongoDbTutorials\MovieDetailsCrud\TestData\movieDetailsTestData.json" />
+    <None Remove="MongoDbTutorials\MovieDetailsSchema\TestData\movieDetailsTestData.json" />
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="MongoDbTutorials\MovieDetailsCrud\TestData\movieDetailsTestData.json" />
+    <EmbeddedResource Include="MongoDbTutorials\MovieDetailsSchema\TestData\movieDetailsTestData.json" />
   </ItemGroup>
 
   <ItemGroup>

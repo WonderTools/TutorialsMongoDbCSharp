@@ -1,0 +1,26 @@
+{
+  "InsertOne": {
+    "_id": "58c59c6a99d4ee0af9e0c325",
+    "title": "Carmencita",
+    "year": "1894",
+    "imdbId": "tt0000001",
+    "criticRating": "G",
+    "genres": [
+      {
+        "id": 1,
+        "type": "Documentary"
+      },
+      {
+        "id": 2,
+        "type": "Short"
+      }
+    ],
+    "viewerRating": "5.9",
+    "viewerVotes": "1032",
+    "runtime": "1",
+    "director": "William K.L. Dickson",
+    "cast": [ "Carmencita", "William Wallace", "Murphy Richards" ],
+    "plot": "Performing on what looks like a small wooden stage, wearing a dress with a hoop skirt and white high-heeled pumps, Carmencita does a dance with kicks and twirls, a smile always on her face.",
+    "createDate": "2018-10-22T01:37:56Z"
+  }
+}
