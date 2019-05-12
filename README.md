@@ -111,7 +111,7 @@ Mongo driver provides various annotations that we can use on top of our model to
 - BsonDiscriminator : Allows Model classes to be discriminated
 
 
-You can read about all the avialable anootaions [here](http://mongodb.github.io/mongo-csharp-driver/2.7/reference/bson/mapping/).
+You can read about all the avialable annotations [here](http://mongodb.github.io/mongo-csharp-driver/2.7/reference/bson/mapping/).
 
 
 #### Schema : BsonId
