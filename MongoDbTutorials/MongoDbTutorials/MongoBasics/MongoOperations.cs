@@ -27,6 +27,7 @@ namespace MongoDbTutorials.MongoDbTutorials.MongoBasics
             mongoCollection = new MongoClient(_runner.ConnectionString).GetDatabase("testdb").GetCollection<Test>("testcollection");
         }
 
+       
         [Test]
         // Insert a document in database named "testdb", in a collection named "testcollection"
         //The document to be inserted should have a property named "Name" and it's value should be "MyName"

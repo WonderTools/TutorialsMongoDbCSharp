@@ -1,0 +1,90 @@
+﻿{
+  "AirTravel": [
+    {
+      "firstName": "Krishna",
+      "lastName": "Gupta",
+      "age": 26,
+      "phone": "1234567909",
+      "travelHistory": [
+        {
+          "bookingID": "AGS1453",
+          "bookingDate": "2018-01-22T01:37:56Z",
+          "from": "Bangalore",
+          "destination": "Delhi",
+          "travelDate": "2018-02-22T01:37:56Z"
+        }
+      ],
+      "foodPreferences": [ "Chinese", "Indian_NonVeg", "Indian_Veg" ],
+      "travelFrequency": [
+        {
+          "toFro": "Bangalore-Delhi",
+          "frequency": 5
+        },
+        {
+          "toFro": "Delhi-Bangalore",
+          "frequency": 3
+        },
+        {
+          "toFro": "Bangalore-Lucknow",
+          "frequency": 1
+        }
+      ]
+    },
+    {
+      "firstName": "Shailesh",
+      "lastName": "Kumar",
+      "age": 29,
+      "phone": 77829478234,
+      "travelHistory": [
+        {
+          "bookingID": "AGS1657",
+          "bookingDate": "2018-11-22T01:37:56Z",
+          "from": "Bangalore",
+          "destination": "Chennai",
+          "travelDate": "2018-12-22T11:37:56Z"
+        }
+      ],
+      "foodPreferences": [ "Indian_NonVeg", "Indian_Veg" ]
+    },
+    {
+      "firstName": "Devbrat",
+      "lastName": "Singh",
+      "phone": 78645204982,
+      "travelHistory": [
+        {
+          "bookingID": "AGS1780",
+          "bookingDate": "2019-02-22T01:37:56Z",
+          "from": "Bangalore",
+          "destination": "Bhopal",
+          "travelDate": "2019-04-22T08:27:56Z"
+        }
+      ],
+      "foodPreferences": [ "Indian_Veg", "Indian_NonVeg" ]
+    },
+    {
+      "firstName": "Shubham",
+      "lastName": "Tyagi",
+      "age": 24,
+      "phone": "78924347823",
+      "travelHistory": [
+        {
+          "bookingID": "ATS1234",
+          "bookingDate": "2019-01-22T01:37:56Z",
+          "from": "Delhi",
+          "destination": "Bangalore",
+          "travelDate": "2019-05-22T12:57:56Z"
+        }
+      ],
+      "travelFrequency": [
+        {
+          "toFro": "Bangalore-Delhi",
+          "frequency": 4
+        },
+        {
+          "toFro": "Delhi-Bangalore",
+          "frequency": 5
+        }
+      ]
+    }
+  ]
+}
