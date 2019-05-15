@@ -19,14 +19,6 @@
         {
           "toFro": "Bangalore-Delhi",
           "frequency": 5
-        },
-        {
-          "toFro": "Delhi-Bangalore",
-          "frequency": 3
-        },
-        {
-          "toFro": "Bangalore-Lucknow",
-          "frequency": 1
         }
       ]
     },
@@ -47,7 +39,24 @@
       "foodPreferences": [ "Indian_NonVeg", "Indian_Veg" ]
     },
     {
+      "firstName": "Souvik",
+      "age": 27,
+      "lastName": "Mukherjee",
+      "phone": 56675204982,
+      "travelHistory": [
+        {
+          "bookingID": "RGS4567",
+          "bookingDate": "2019-03-12T10:37:56Z",
+          "from": "Bangalore",
+          "destination": "Ranchi",
+          "travelDate": "2019-04-02T18:27:56Z"
+        }
+      ],
+      "foodPreferences": [ "Indian_NonVeg", "Indian_Veg" ]
+    },
+    {
       "firstName": "Devbrat",
+      "age": 15,
       "lastName": "Singh",
       "phone": 78645204982,
       "travelHistory": [
@@ -79,12 +88,31 @@
         {
           "toFro": "Bangalore-Delhi",
           "frequency": 4
-        },
-        {
-          "toFro": "Delhi-Bangalore",
-          "frequency": 5
         }
-      ]
+      ],
+      "foodPreferences": [ "Chinese" ]
+    },
+    {
+      "firstName": "Sonali",
+      "age": 17,
+      "lastName": "Singh",
+      "phone": 75675204982,
+      "travelHistory": [
+        {
+          "bookingID": "PGS1789",
+          "bookingDate": "2019-02-22T01:37:56Z",
+          "from": "Bangalore",
+          "destination": "Delhi",
+          "travelDate": "2019-04-22T08:27:56Z"
+        }
+      ],
+      "travelFrequency": [
+        {
+          "toFro": "Bangalore-Delhi",
+          "frequency": 4
+        }
+      ],
+      "foodPreferences": [ "Indian_NonVeg" ]
     }
   ]
 }

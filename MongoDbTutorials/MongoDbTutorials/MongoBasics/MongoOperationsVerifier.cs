@@ -4,6 +4,7 @@ using System.Linq;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Driver;
+using MongoDbTutorials.MongoDbTutorials.MongoBasics.Model;
 using NUnit.Framework;
 
 namespace MongoDbTutorials.MongoDbTutorials.MongoBasics
