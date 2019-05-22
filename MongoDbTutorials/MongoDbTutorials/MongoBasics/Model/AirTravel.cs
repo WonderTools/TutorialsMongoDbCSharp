@@ -15,7 +15,7 @@ namespace MongoDbTutorials.MongoDbTutorials.MongoBasics.Model
         public int Age { get; set; }
         public string Phone { get; set; }
         [BsonRepresentation(BsonType.String)]
-        public List<FoodTypes> FoodPrefrence { get; set; }
+        public List<FoodTypes> FoodPreferences{ get; set; }
         public List<TravelHistory> TravelHistory { get; set; }
         public List<TravelFrequency> TravelFrequency { get; set; }
 

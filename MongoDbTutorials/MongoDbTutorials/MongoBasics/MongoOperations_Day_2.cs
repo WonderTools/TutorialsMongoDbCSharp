@@ -48,7 +48,8 @@ namespace MongoDbTutorials.MongoDbTutorials.MongoBasics
             #region data preparation
             var documents = InsertMany();
             #endregion
-            
+
+            var beforeUpdate = mongoCollection.Find(Builders<Test>.Filter.Empty).ToList();
             var filter = Builders<Test>.Filter.Eq(x => x.Name, "MyName1");
             var updateOperation = Builders<Test>.Update.Set(x => x.Name, "UpdatedName");
             mongoCollection.UpdateOne(filter, updateOperation);
@@ -74,7 +75,10 @@ namespace MongoDbTutorials.MongoDbTutorials.MongoBasics
             InsertTravelDetails();
             #endregion
 
-            ///insert code here///
+            var filter = Builders<AirTravel>.Filter.Eq(x => x.FirstName, "Krishna");
+            var foodPrefrence = new List<FoodTypes>() { FoodTypes.Indian_NonVeg };
+            var updateOperation = Builders<AirTravel>.Update.Set(x => x.FoodPreferences, foodPrefrence);
+            travelCollection.UpdateOne(filter, updateOperation);
 
             #region verification
             TravelOperationVerifier.VerifyUpdateFoodPrefrence(_runner.ConnectionString);
@@ -100,7 +104,7 @@ namespace MongoDbTutorials.MongoDbTutorials.MongoBasics
             #region data preparation
             var documents = InsertMany();
             #endregion
-
+            var beforeUpdate = mongoCollection.Find(Builders<Test>.Filter.Empty).ToList();
             var filter = Builders<Test>.Filter.Empty;
             var updateOperation = Builders<Test>.Update.Set(x => x.Name, "UpdatedName");
             mongoCollection.UpdateMany(filter, updateOperation);
@@ -112,7 +116,7 @@ namespace MongoDbTutorials.MongoDbTutorials.MongoBasics
             #endregion
         }
 
-        
+
         [Test]
         // Insert a list of documenst in database named "testdb", in a collection named "testcollection"
         // delete the document with name "MyName0"
@@ -127,9 +131,10 @@ namespace MongoDbTutorials.MongoDbTutorials.MongoBasics
             #region data preparation
             var documents = InsertMany();
             #endregion
-
+            var beforeUpdate = mongoCollection.Find(Builders<Test>.Filter.Empty).ToList();
             var filter = new BsonDocument(new BsonDocument("Name", "MyName0"));
-            mongoCollection.DeleteOne(filter);
+            var filter1 = Builders<Test>.Filter.Eq(x => x.Name, "MyNAme");
+            mongoCollection.DeleteMany(filter);
 
             #region verification
             MongoOperationsVerifier.VerifyDeleteOne(_runner.ConnectionString, documents);
@@ -153,7 +158,9 @@ namespace MongoDbTutorials.MongoDbTutorials.MongoBasics
             InsertTravelDetails();
             #endregion
 
-           ///insert code here
+            var beforeUpdate = travelCollection.Find(Builders<AirTravel>.Filter.Empty).ToList();
+            var filter = Builders<AirTravel>.Filter.Lt(x => x.Age, 18);
+            travelCollection.DeleteMany(filter);
 
             #region verification
             TravelOperationVerifier.Verify_No_Minor_Passenger(_runner.ConnectionString);
@@ -200,7 +207,7 @@ namespace MongoDbTutorials.MongoDbTutorials.MongoBasics
         #region excercise 3
         [Test]
         // Insert a list of documenst in database named "testdb", in a collection named "travel"
-        // upadte the travel of given booking ID "PGS1789"
+        // upadte the travel date to today UTC of given booking ID "PGS1789"
 
         public void MongoCrud_07_2_Find_Customer_with_Booking_ID_AndUpdate_TravelDate()
         {
@@ -212,8 +219,15 @@ namespace MongoDbTutorials.MongoDbTutorials.MongoBasics
             #region data preparation
             InsertTravelDetails();
             #endregion
+            var beforeUpdate = travelCollection.Find(Builders<AirTravel>.Filter.Empty).ToList();
+            var filter = Builders<AirTravel>.Filter.ElemMatch(x => x.TravelHistory, his => his.BookingID == "PGS1789");
+            var updateOperation = Builders<AirTravel>.Update.Set(x => x.TravelHistory.ElementAt(-1).TravelDate, DateTime.Now);
 
-           //insert code here
+            var options = new FindOneAndUpdateOptions<AirTravel>
+            {
+                ReturnDocument = ReturnDocument.After
+            };
+            var updatedDocuemnt = travelCollection.FindOneAndUpdate(filter, updateOperation, options);
 
             #region verification
             TravelOperationVerifier.Verify_Travel_Date_Updated(_runner.ConnectionString);
@@ -224,206 +238,7 @@ namespace MongoDbTutorials.MongoDbTutorials.MongoBasics
         }
 
         #endregion
-        [Test]
-        // Insert a list of Documents
-        // Find All Documents with Name starting with Myname
-        // return only first 2 documents
-        public void MongoCrud_08_Limit_The_Number_Of_Records()
-        {
-            #region mongoConnection
-
-            mongoCollection = new MongoClient(_runner.ConnectionString).GetDatabase("testdb").GetCollection<Test>("testcollection");
-
-            #endregion
-            #region data preparation
-            InsertMany();
-            #endregion
-
-            var filter = Builders<Test>.Filter.Regex(x => x.Name, BsonRegularExpression.Create(new Regex("MyName.*")));
-            var documents = mongoCollection.Find(filter).Limit(2).ToList();
-
-            #region verification
-            Assert.AreNotEqual(documents, null);
-            Assert.AreEqual(documents.Count, 2);
-
-            #endregion
-
-        }
-
-        [Test]
-        // Insert a list of Documents
-        // Find All Documents with Name starting with Myname
-        // skip the first 5 documents
-        // select * from test where name like "Myname%"
-        public void MongoCrud_09_Skip_First_Five_Documents()
-        {
-            #region mongoConnection
-
-            mongoCollection = new MongoClient(_runner.ConnectionString).GetDatabase("testdb").GetCollection<Test>("testcollection");
-
-            #endregion
-            #region data preparation
-            InsertMany();
-            #endregion
-
-            var filter = Builders<Test>.Filter.Regex(x => x.Name, BsonRegularExpression.Create(new Regex("MyName.*")));
-            var documents = mongoCollection.Find(filter).Limit(2).ToList();
-
-            #region verification
-            Assert.AreNotEqual(documents, null);
-            Assert.AreEqual(documents.Count, 2);
-
-            #endregion
-
-        }
-
-        [Test]
-        // Insert a list of Documents
-        // find the first document order by name in desc order
-        // select * from test order by name
-        public void MongoCrud_10_1_Sort_Document_By_Name_Descending()
-        {
-
-            #region mongoConnection
-
-            mongoCollection = new MongoClient(_runner.ConnectionString).GetDatabase("testdb").GetCollection<Test>("testcollection");
-
-            #endregion
-            #region data preparation
-            InsertMany();
-            #endregion
-
-            var filter = Builders<Test>.Filter.Empty;
-            var document = mongoCollection.Find(filter).Sort(Builders<Test>.Sort.Descending(x => x.Name)).FirstOrDefault();
-
-            #region verification
-            Assert.AreNotEqual(document, null);
-            Assert.AreEqual(document.Name, "MyName9");
-
-            #endregion
-
-
-        }
-
-        #region excercise 4
-        [Test]
-        // Insert a list of documenst in database named "testdb", in a collection named "travel"
-        // find the recent second-two travlers with name starting with S order by name desc
-
-        public void MongoCrud_10_2_Find_Second_two_Recent_Passengers_with_Name_Starting_With_S_Order_By_Name_Dsc()
-        {
-            #region mongoConnection
-
-            travelCollection = new MongoClient(_runner.ConnectionString).GetDatabase("testdb").GetCollection<AirTravel>("travel");
-
-            #endregion
-            #region data preparation
-            InsertTravelDetails();
-            #endregion
-
-            //insert code here
-
-            var result = new List<AirTravel> { };
-            #region verification
-            TravelOperationVerifier.Verify_Passengers_NameStarting_with_S(_runner.ConnectionString, result);
-            #endregion
-            #region data cleanup
-            cleanUpTravelCollection();
-            #endregion
-        }
-
-        #endregion
-
-        [Test]
-        // fetch The list user names
-        // select name from test
-        public void MongoCrud_11_Project_Document_Name()
-        {
-            #region mongoConnection
-
-            mongoCollection = new MongoClient(_runner.ConnectionString).GetDatabase("testdb").GetCollection<Test>("testcollection");
-
-            #endregion
-            #region data preparation
-            InsertMany();
-            #endregion
-
-            var filter = Builders<Test>.Filter.Empty;
-            var document = mongoCollection.Find(filter).Project(Builders<Test>.Projection.Include(x => x.Name).Exclude(x => x.Id))
-                .ToList().FirstOrDefault();
-
-            #region verification
-            Assert.AreNotEqual(document, null);
-            Assert.AreEqual(document.ElementCount, 1);
-
-            #endregion
-
-
-        }
-
        
-        [Test]
-        //insert 10 objects of same name, group by name and project name and count of name and order by count descending
-        // select name, count(*)  as count from test group by name order by count desc
-        public void MongoCrud_12_1_Group_Document_By_Various_Names()
-        {
-            #region mongoConnection
-
-            mongoCollection = new MongoClient(_runner.ConnectionString).GetDatabase("testdb").GetCollection<Test>("testcollection");
-
-            #endregion
-            #region data preparation
-            UpdateMany();
-            InsertMany();
-            #endregion
-
-            var query = mongoCollection.AsQueryable()
-                   .GroupBy(p => p.Name)
-                   .Select(g => new { Name = g.Key, Count = g.Count() })
-                   .OrderByDescending(x => x.Count);
-            var documents = query.ToList();
-            var document = documents.FirstOrDefault();
-
-            #region verification
-            Assert.AreNotEqual(document, null);
-            Assert.AreEqual(document.Name, "UpdatedName");
-            Assert.AreEqual(document.Count, 10);
-
-            #endregion
-
-
-        }
-
-        #region excercise 5
-        [Test]
-        // Insert a list of documenst in database named "testdb", in a collection named "travel"
-        // find the count of passengers with similar travel frequency order by count desc
-
-        public void MongoCrud_12_2_Find_Th_count_pasengers_with_similar_travel_frequency()
-        {
-            #region mongoConnection
-
-            travelCollection = new MongoClient(_runner.ConnectionString).GetDatabase("testdb").GetCollection<AirTravel>("travel");
-
-            #endregion
-            #region data preparation
-            InsertTravelDetails();
-            #endregion
-                        
-            //insert code here
-
-            var documents = new List<AirTravel> { };
-
-            #region verification
-            Assert.AreEqual(documents.Count, 3);
-           // Assert.AreEqual(documents.ElementAt(1).Count, 2);
-            #endregion
-            #region data cleanup
-            cleanUpTravelCollection();
-            #endregion
-        }
-
-        #endregion
         [TearDown]
         public void CleanUp()
         {

@@ -19,6 +19,10 @@
         {
           "toFro": "Bangalore-Delhi",
           "frequency": 5
+        },
+        {
+          "toFro": "Bangalore-Patna",
+          "frequency": 2
         }
       ]
     },
@@ -40,7 +44,7 @@
     },
     {
       "firstName": "Souvik",
-      "age": 27,
+      "age": 26,
       "lastName": "Mukherjee",
       "phone": 56675204982,
       "travelHistory": [
@@ -114,5 +118,21 @@
       ],
       "foodPreferences": [ "Indian_NonVeg" ]
     }
-  ]
+  ],
+  "FindAndUpdatePassenger": {
+    "firstName": "Geethu",
+    "lastName": "MS",
+    "age": 26,
+    "phone": "1234567909",
+    "travelHistory": [
+      {
+        "bookingID": "MYS34394",
+        "bookingDate": "2019-04-22T01:37:56Z",
+        "from": "Bangalore",
+        "destination": "Delhi",
+        "travelDate": "2019-04-28T01:37:56Z"
+      }
+    ],
+    "foodPreferences": [ "Indian_NonVeg" ]
+  }
 }

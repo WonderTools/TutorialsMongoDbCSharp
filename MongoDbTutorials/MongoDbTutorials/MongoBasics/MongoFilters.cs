@@ -66,7 +66,7 @@ namespace MongoDbTutorials.MongoDbTutorials.MongoBasics
              [Test]
             public void MongoCrud_04_Filters_Passengers_NonVeg_Food_Prefence()
             {
-                var filter = Builders<AirTravel>.Filter.AnyEq(x => x.FoodPrefrence,FoodTypes.Indian_NonVeg);
+                var filter = Builders<AirTravel>.Filter.AnyEq(x => x.FoodPreferences, FoodTypes.Indian_NonVeg);
                 var json = filter.ToJson();
 
         }

@@ -19,7 +19,7 @@ namespace MongoDbTutorials.MongoDbTutorials.MongoBasics
             var filter = Builders<AirTravel>.Filter.Eq(x => x.FirstName, "Krishna");
             var result = GetCollection(connectionString).FindAsync(filter);
             var resultData = result.Result.ToList().FirstOrDefault();
-            var foodPrefrence = resultData.FoodPrefrence;
+            var foodPrefrence = resultData.FoodPreferences;
             Assert.AreEqual(1, foodPrefrence.Count, "More than one food prefrence exists for passenger");
             Assert.AreEqual(FoodTypes.Indian_NonVeg, foodPrefrence.FirstOrDefault(), "food prefrence not equal to Indian_NonVeg");
         }
@@ -58,7 +58,25 @@ namespace MongoDbTutorials.MongoDbTutorials.MongoBasics
             Assert.AreEqual(TravelDocument.ElementAt(1).FirstName, result.ElementAt(1).FirstName, "sorting not proper");
         }
 
-      
+
+        public static void Verify_Removed_Food_Prefrence(string connectionString)
+        {
+            var filter = Builders<AirTravel>.Filter.Eq(x => x.FirstName, "Krishna");
+            var result = GetCollection(connectionString).FindAsync(filter);
+            var resultData = result.Result.ToList().FirstOrDefault();
+            var foodPrefrence = resultData.FoodPreferences;
+            Assert.False(foodPrefrence.Contains(FoodTypes.Indian_NonVeg), "NonVeg food prefrence still present");
+        }
+
+        public static void Verify_Add_Food_Preference(string connectionString)
+        {
+            var filter = Builders<AirTravel>.Filter.Eq(x => x.FirstName, "Shubham");
+            var result = GetCollection(connectionString).FindAsync(filter);
+            var resultData = result.Result.ToList().FirstOrDefault();
+            var foodPrefrence = resultData.FoodPreferences;
+            Assert.True(foodPrefrence.Contains(FoodTypes.Indian_Veg), "food prefrence not added");
+        }
+
         private static IMongoCollection<AirTravel> GetCollection(string connectionString)
         {
             var client = new MongoClient(connectionString);
@@ -66,6 +84,7 @@ namespace MongoDbTutorials.MongoDbTutorials.MongoBasics
             return coll;
         }
 
-        
+
+
     }
 }
